@@ -21,12 +21,8 @@ lateinit var viewPager:ViewPager
         btnNext = findViewById(R.id.btn_next)
         linearLayout = findViewById(R.id.linear_layout)
 
-        val adapter = MainAdapter(this)
-        viewPager.adapter=adapter
-        adddots(0)
-    }
-
-    private fun adddots(i: Int) {
-
+//        val adapter = MainAdapter(this)
+//        viewPager.adapter=adapter
+//        adddots(0)
     }
 }
