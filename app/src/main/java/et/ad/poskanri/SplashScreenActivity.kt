@@ -13,7 +13,7 @@ private val SPLASH_TIME_OUT:Long =3000
         setContentView(R.layout.activity_splash_screen)
 
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, IntroSliderActivity::class.java))
 
             finish()
         }, SPLASH_TIME_OUT)

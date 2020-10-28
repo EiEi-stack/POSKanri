@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">POSKanri</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_intro1">Purchase Price</string>
+    <string name="text_intro2">Sale Price</string>
+    <string name="text_intro3">Customer Details</string>
+    <string name="desc_intro1">Calculate your initial purchase prices</string>
+    <string name="desc_intro2">Based on the tax and other costs, calculate the sale prices</string>
+    <string name="desc_intro3">Store the customer details and sale information</string>
 </resources>
