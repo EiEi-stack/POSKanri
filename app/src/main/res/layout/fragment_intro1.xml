@@ -5,14 +5,10 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:gravity="center"
-    android:background="#F57C00"
+    android:background="#FF9933"
+    android:orientation="vertical"
     tools:context=".Intro1Fragment">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_customer"
-        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,6 +18,11 @@
         android:gravity="center"
         android:layout_marginTop="20dp"
         android:textStyle="bold"
+        />
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_purchase"
         />
     <TextView
         android:layout_width="wrap_content"

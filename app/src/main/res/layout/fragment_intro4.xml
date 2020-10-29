@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:gravity="center"
-    android:background="#339999"
+    android:background="#944382"
     android:orientation="vertical"
     tools:context=".Intro3Fragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_intro3"
+        android:text="@string/text_intro4"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:gravity="center"
@@ -22,12 +22,12 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/ic_customer"
+        android:src="@drawable/ic_profit_loss"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/desc_intro3"
+        android:text="@string/desc_intro4"
         android:textColor="@android:color/white"
         android:textSize="16sp"
         android:gravity="center"
