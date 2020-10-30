@@ -3,12 +3,17 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_intro1">Purchase Price</string>
-    <string name="text_intro2">Sale Price</string>
-    <string name="text_intro3">Customer Details</string>
-    <string name="text_intro4">Profit and Loss</string>
-    <string name="desc_intro1">Calculate your initial purchase prices</string>
-    <string name="desc_intro2">Based on the tax and other costs, calculate the sale prices</string>
-    <string name="desc_intro3">Store the customer details and sale information</string>
-    <string name="desc_intro4">Calculate the profit and loss</string>
+    <string name="text_intro1">購入金額</string>
+    <string name="text_intro2">セールスプライス</string>
+    <string name="text_intro3">顧客の詳細</string>
+    <string name="text_intro4">利益と損失</string>
+    <string name="desc_intro1">初期購入価格を計算する</string>
+    <string name="desc_intro2">税金やその他の費用に基づいて、販売価格を計算します</string>
+    <string name="desc_intro3">顧客の詳細と販売情報を保存します</string>
+    <string name="desc_intro4">損益を計算する</string>
+    <string name="next">次</string>
+    <string name="get_started">始めましょう</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="skip">スキップ</string>
 </resources>
