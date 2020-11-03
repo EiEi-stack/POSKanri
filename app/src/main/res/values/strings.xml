@@ -3,9 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="text_intro1">購入金額</string>
-    <string name="text_intro2">セールスプライス</string>
-    <string name="text_intro3">顧客の詳細</string>
+    <string name="purchase">購入金額</string>
+    <string name="sale">販売</string>
+    <string name="customer_detail">顧客の詳細</string>
     <string name="text_intro4">利益と損失</string>
     <string name="desc_intro1">初期購入価格を計算する</string>
     <string name="desc_intro2">税金やその他の費用に基づいて、販売価格を計算します</string>
@@ -16,4 +16,8 @@
     <string name="open">open</string>
     <string name="close">close</string>
     <string name="skip">スキップ</string>
+    <string name="item_name">項目名</string>
+    <string name="quantity">数量</string>
+    <string name="comment">コメント</string>
+    <string name="register">登録する</string>
 </resources>
