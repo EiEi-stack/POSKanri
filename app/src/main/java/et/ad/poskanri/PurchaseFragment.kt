@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +35,13 @@ class PurchaseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view =inflater.inflate(R.layout.fragment_purchase, container, false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_purchase, container, false)
+        val btnRegister = view.findViewById<Button>(R.id.btn_purchase_register)
+        btnRegister.setOnClickListener(View.OnClickListener {
+            Toast.makeText(context,"Hello",Toast.LENGTH_SHORT).show()
+        })
+        return view
     }
 
     companion object {
