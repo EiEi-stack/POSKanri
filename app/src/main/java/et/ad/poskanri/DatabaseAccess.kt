@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import et.ad.poskanri.dbclass.Purchase
+import et.ad.poskanri.dbclass.*
 
 class DatabaseAccess(context: Context) {
     private val openHelper: SQLiteOpenHelper
@@ -21,10 +21,16 @@ class DatabaseAccess(context: Context) {
         }
     }
 
-//    fun addPurchase(purchase: Purchase):Boolean{
-////        val cv= ContentValues()
-////        cv.put()
-////    }
+    fun addPurchase(purchase: Purchase): Boolean {
+        val cv = ContentValues()
+        cv.put(COL_ITEM_NAME, purchase.itemName)
+        cv.put(COL_PURCHASE_PRICE, purchase.purchasePrice)
+        cv.put(COL_ITEM_QTY, purchase.itemQty)
+        cv.put(COL_TAX, purchase.tax)
+        cv.put(COL_COMMENT, purchase.comment)
+        val result = database?.insert(TABLE_PURCHASE, null, cv)
+        return result != (-1).toLong()
+    }
 
     companion object {
         private var instance: DatabaseAccess? = null

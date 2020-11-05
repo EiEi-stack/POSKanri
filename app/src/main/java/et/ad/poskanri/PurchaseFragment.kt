@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
+import et.ad.poskanri.dbclass.Purchase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,7 +24,7 @@ class PurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    lateinit var dataAccess: DatabaseAccess
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,13 +37,39 @@ class PurchaseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view =inflater.inflate(R.layout.fragment_purchase, container, false)
+        val view = inflater.inflate(R.layout.fragment_purchase, container, false)
         // Inflate the layout for this fragment
         val btnRegister = view.findViewById<Button>(R.id.btn_purchase_register)
+        val etPurchaseItemName = view.findViewById<EditText>(R.id.et_purchase_item_name)
+        val etPurchasePrice = view.findViewById<EditText>(R.id.et_purchase_price)
+        val etPurchaseQty = view.findViewById<EditText>(R.id.et_purchase_qty)
+        val etPurchaseComment = view.findViewById<EditText>(R.id.et_purchase_comment)
         btnRegister.setOnClickListener(View.OnClickListener {
-            Toast.makeText(context,"Hello",Toast.LENGTH_SHORT).show()
+            val purchase = Purchase()
+            purchase.itemName = etPurchaseItemName.text.toString().trim()
+            purchase.purchasePrice = Integer.parseInt(etPurchasePrice.text.toString().trim())
+            purchase.itemQty = Integer.parseInt(etPurchaseQty.text.toString().trim())
+            purchase.comment = etPurchaseComment.text.toString().trim()
+            openDB()
+            val isSuccess = dataAccess.addPurchase(purchase)
+            if (isSuccess) {
+                Toast.makeText(context, "追加する成功しました", Toast.LENGTH_SHORT).show()
+                etPurchaseItemName.text.clear()
+                etPurchasePrice.text.clear()
+                etPurchaseQty.text.clear()
+                etPurchaseComment.text.clear()
+            }
         })
         return view
+    }
+
+    fun openDB() {
+        dataAccess = context?.applicationContext?.let {
+            DatabaseAccess.getInstance(
+                it
+            )
+        }!!
+        dataAccess.open()
     }
 
     companion object {
