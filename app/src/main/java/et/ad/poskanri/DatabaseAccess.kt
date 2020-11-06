@@ -32,6 +32,40 @@ class DatabaseAccess(context: Context) {
         return result != (-1).toLong()
     }
 
+    fun getPurchase(): MutableList<Purchase> {
+        val list: MutableList<Purchase> = ArrayList()
+        val queryResult = database!!.rawQuery("SELECT * from purchase", null)
+        if (queryResult.moveToFirst()) {
+            do {
+                val purchase = Purchase()
+                purchase.itemName = queryResult.getString(queryResult.getColumnIndex(COL_ITEM_NAME))
+                purchase.purchasePrice = queryResult.getInt(
+                    queryResult.getColumnIndex(
+                        COL_PURCHASE_PRICE
+                    )
+                )
+                purchase.itemQty = queryResult.getInt(
+                    queryResult.getColumnIndex(
+                        COL_ITEM_QTY
+                    )
+                )
+                purchase.tax = queryResult.getInt(
+                    queryResult.getColumnIndex(
+                        COL_TAX
+                    )
+                )
+                purchase.comment = queryResult.getString(
+                    queryResult.getColumnIndex(
+                        COL_COMMENT
+                    )
+                )
+
+            } while (queryResult.moveToNext())
+            queryResult.close()
+        }
+        return list
+    }
+
     companion object {
         private var instance: DatabaseAccess? = null
 

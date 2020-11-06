@@ -1,10 +1,12 @@
 package et.ad.poskanri
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -45,6 +47,8 @@ class PurchaseFragment : Fragment() {
         val etPurchaseQty = view.findViewById<EditText>(R.id.et_purchase_qty)
         val etPurchaseComment = view.findViewById<EditText>(R.id.et_purchase_comment)
         btnRegister.setOnClickListener(View.OnClickListener {
+            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
             val purchase = Purchase()
             purchase.itemName = etPurchaseItemName.text.toString().trim()
             purchase.purchasePrice = Integer.parseInt(etPurchasePrice.text.toString().trim())
@@ -58,6 +62,12 @@ class PurchaseFragment : Fragment() {
                 etPurchasePrice.text.clear()
                 etPurchaseQty.text.clear()
                 etPurchaseComment.text.clear()
+
+                val fragment = SaleFragment()
+                val fragmentManager = fragmentManager
+                val fragmentTransaction = fragmentManager?.beginTransaction()
+                fragmentTransaction?.replace(R.id.frame_content, fragment)
+                fragmentTransaction?.commit()
             }
         })
         return view
