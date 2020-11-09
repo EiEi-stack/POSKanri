@@ -49,14 +49,18 @@ class PurchaseFragment : Fragment() {
         btnRegister.setOnClickListener(View.OnClickListener {
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
-            val purchase = Purchase()
-            purchase.itemName = etPurchaseItemName.text.toString().trim()
-            purchase.purchasePrice = Integer.parseInt(etPurchasePrice.text.toString().trim())
-            purchase.itemQty = Integer.parseInt(etPurchaseQty.text.toString().trim())
-            purchase.comment = etPurchaseComment.text.toString().trim()
-            openDB()
-            val isSuccess = dataAccess.addPurchase(purchase)
-            if (isSuccess) {
+//            val purchase = Purchase()
+//            purchase.itemName = etPurchaseItemName.text.toString().trim()
+//            purchase.purchasePrice = Integer.parseInt(etPurchasePrice.text.toString().trim())
+//            purchase.itemQty = Integer.parseInt(etPurchaseQty.text.toString().trim())
+//            purchase.comment = etPurchaseComment.text.toString().trim()
+
+            val dbHelper= MyDatabaseHelper(activity!!.applicationContext)
+            val isSuccess =dbHelper.addPurchaseItem(etPurchaseItemName.text.toString().trim(),
+                Integer.valueOf(etPurchasePrice.text.toString().trim()),
+                Integer.valueOf(etPurchaseQty.text.toString().trim()),etPurchaseComment.text.toString().trim())
+
+            if (isSuccess.toInt() != -1) {
                 Toast.makeText(context, "追加する成功しました", Toast.LENGTH_SHORT).show()
                 etPurchaseItemName.text.clear()
                 etPurchasePrice.text.clear()
@@ -71,18 +75,7 @@ class PurchaseFragment : Fragment() {
             }
         })
         return view
-    }
-
-    fun openDB() {
-        dataAccess = context?.applicationContext?.let {
-            DatabaseAccess.getInstance(
-                it
-            )
-        }!!
-        dataAccess.open()
-    }
-
-    companion object {
+    }  companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
