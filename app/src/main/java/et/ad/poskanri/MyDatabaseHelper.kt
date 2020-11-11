@@ -2,6 +2,7 @@ package et.ad.poskanri
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
@@ -46,5 +47,25 @@ class MyDatabaseHelper(
         cv.put(COL_ITEM_QTY, qty)
         cv.put(COL_COMMENT, comment)
         return db.insert(TABLE_NAME, null, cv)
+    }
+
+
+    fun readAllData(): Cursor? {
+        var cursor: Cursor? = null
+        val db = this.readableDatabase
+        if (db != null) {
+            cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
+
+        }
+        return cursor
+    }
+
+    fun updateData(rowId:String,purchaseItem:String,purchasePrice:Int,purchaseQty:Int):Int{
+        val db=this.writableDatabase
+        val cv= ContentValues()
+        cv.put(COL_ITEM_NAME,purchaseItem)
+        cv.put(COL_PURCHASE_PRICE,purchasePrice)
+        cv.put(COL_ITEM_QTY,purchaseQty)
+        return db.update(TABLE_NAME,cv,"$COL_PURCHASE_ID=?", arrayOf(rowId))
     }
 }

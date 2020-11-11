@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import et.ad.poskanri.dbclass.Purchase
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,7 +28,12 @@ class PurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    lateinit var dataAccess: DatabaseAccess
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var purchase_id: ArrayList<String>
+    private lateinit var item_name: ArrayList<String>
+    private lateinit var purchase_price: ArrayList<String>
+    private lateinit var item_qty: ArrayList<String>
+    private lateinit var customAdapter: CustomAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -46,6 +53,7 @@ class PurchaseFragment : Fragment() {
         val etPurchasePrice = view.findViewById<EditText>(R.id.et_purchase_price)
         val etPurchaseQty = view.findViewById<EditText>(R.id.et_purchase_qty)
         val etPurchaseComment = view.findViewById<EditText>(R.id.et_purchase_comment)
+        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         btnRegister.setOnClickListener(View.OnClickListener {
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -74,8 +82,36 @@ class PurchaseFragment : Fragment() {
                 fragmentTransaction?.commit()
             }
         })
+
+        purchase_id = ArrayList<String>()
+        item_name = ArrayList<String>()
+        purchase_price = ArrayList<String>()
+        item_qty = ArrayList<String>()
+        displayData()
+        customAdapter =
+            activity?.applicationContext?.let { CustomAdapter(it, purchase_id, item_name, item_qty, purchase_price) }!!
+        recyclerView.adapter = customAdapter
+        recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
         return view
-    }  companion object {
+    }
+    fun displayData() {
+        val db = activity?.applicationContext?.let { MyDatabaseHelper(it) }
+
+        val cursor = db?.readAllData()
+        if (cursor?.count == 0) {
+            Toast.makeText(activity?.applicationContext, "No data", Toast.LENGTH_SHORT).show()
+
+        } else {
+            while (cursor?.moveToNext()!!) {
+                cursor?.getString(0)?.let { purchase_id.add(it) }
+                cursor?.getString(1)?.let { item_name.add(it) }
+                cursor?.getString(2)?.let { purchase_price.add(it) }
+                cursor?.getString(3)?.let { item_qty.add(it) }
+            }
+        }
+    }
+
+    companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
