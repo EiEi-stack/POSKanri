@@ -7,11 +7,6 @@
     <FrameLayout
         android:id="@+id/frame_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

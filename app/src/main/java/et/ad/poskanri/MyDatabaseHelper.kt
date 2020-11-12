@@ -68,4 +68,14 @@ class MyDatabaseHelper(
         cv.put(COL_ITEM_QTY,purchaseQty)
         return db.update(TABLE_NAME,cv,"$COL_PURCHASE_ID=?", arrayOf(rowId))
     }
+    fun deleteOneRow(rowId:String):Int{
+        val db = this.writableDatabase
+        return db.delete(TABLE_NAME,"$COL_PURCHASE_ID=?", arrayOf(rowId))
+
+    }
+
+    fun deleteAllData(){
+        val db = this.writableDatabase
+        db.execSQL("DELETE FROM $TABLE_NAME")
+    }
 }

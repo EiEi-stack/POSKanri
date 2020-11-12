@@ -1,10 +1,8 @@
 package et.ad.poskanri
 
+import DisplayPurchaseFragment
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.Button
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -23,7 +21,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) { // initial transaction should be wrapped like this
             var fragment: Fragment
-            fragment = PurchaseFragment()
+            fragment = DisplayPurchaseFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_content, fragment)
                 .commitAllowingStateLoss()

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:gravity="center"
-    android:background="#FF6347"
+    android:background="#dd7cb1"
     android:orientation="vertical"
     tools:context=".Intro2Fragment">
     <TextView

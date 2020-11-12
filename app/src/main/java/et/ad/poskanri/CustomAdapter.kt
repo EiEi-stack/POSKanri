@@ -36,6 +36,7 @@ class CustomAdapter(  private val context: Context,
 
         holder.mainLayout.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, UpdateActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             intent.putExtra("id", purchase_id[position].toString())
             intent.putExtra("item", purchase_item[position].toString())
             intent.putExtra("price", purchase_qty[position].toString())
