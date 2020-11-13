@@ -69,7 +69,7 @@ class UpdateActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "No Intent data", Toast.LENGTH_SHORT).show()
         }
     }
-    fun confirmDialog() {
+    private fun confirmDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Delete ${item}?")
         builder.setMessage("Are you sure you want to Delete ${item}?")

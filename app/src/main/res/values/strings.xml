@@ -20,6 +20,7 @@
     <string name="quantity">数量</string>
     <string name="comment">コメント</string>
     <string name="register">登録する</string>
+    <string name="update">更新する</string>
     <string name="delete">削除する</string>
     <string name="delete_all">全部削除する</string>
 </resources>

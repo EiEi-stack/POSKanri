@@ -1,5 +1,6 @@
 package et.ad.poskanri
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,11 +10,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomAdapter(  private val context: Context,
-                      private val purchase_id: ArrayList<String>,
-                      private val purchase_item: ArrayList<String>,
-                      private val purchase_qty: ArrayList<String>,
-                      private val purchase_price: ArrayList<String>
+class CustomAdapter(
+    private val activity: Activity,
+    private val context: Context,
+    private val purchase_id: ArrayList<String>,
+    private val purchase_item: ArrayList<String>,
+    private val purchase_qty: ArrayList<String>,
+    private val purchase_price: ArrayList<String>
 ) : RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomAdapter.MyViewHolder {
@@ -41,13 +44,12 @@ class CustomAdapter(  private val context: Context,
             intent.putExtra("item", purchase_item[position].toString())
             intent.putExtra("price", purchase_qty[position].toString())
             intent.putExtra("qty", purchase_price[position].toString())
-            context.startActivity(intent)
+            activity.startActivityForResult(intent,1)
         })
     }
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var purchaseId: TextView = itemView.findViewById(R.id.txt_purchase_id)
         var itemName: TextView = itemView.findViewById(R.id.txt_item)
         var itemPrice: TextView = itemView.findViewById(R.id.txt_price)

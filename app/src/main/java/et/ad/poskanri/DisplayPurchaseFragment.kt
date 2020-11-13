@@ -1,18 +1,15 @@
-import android.content.DialogInterface
 import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import et.ad.poskanri.CustomAdapter
 import et.ad.poskanri.MyDatabaseHelper
 import et.ad.poskanri.R
-
-
-import android.os.Bundle
-import android.view.*
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import et.ad.poskanri.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +56,7 @@ class DisplayPurchaseFragment : Fragment() {
         customAdapter =
             activity?.applicationContext?.let {
                 CustomAdapter(
+                    activity!!,
                     it,
                     purchase_id,
                     item_name,
@@ -71,6 +69,19 @@ class DisplayPurchaseFragment : Fragment() {
         return view
     }
 
+    override fun startActivityForResult(intent: Intent?, requestCode: Int) {
+        super.startActivityForResult(intent, requestCode)
+        if(requestCode ==1){
+            val fragment = DisplayPurchaseFragment()
+            activity?.supportFragmentManager?.beginTransaction()?.remove(fragment)?.commit()
+
+            val newFragment = DisplayPurchaseFragment()
+            val fragmentManager = fragmentManager
+            val fragmentTransaction = fragmentManager?.beginTransaction()
+            fragmentTransaction?.replace(R.id.frame_content, newFragment)
+            fragmentTransaction?.commit()
+        }
+    }
     fun displayData() {
         val db = activity?.applicationContext?.let { MyDatabaseHelper(it) }
 
@@ -88,7 +99,18 @@ class DisplayPurchaseFragment : Fragment() {
         }
     }
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode==1){
+                val frg = activity?.supportFragmentManager?.findFragmentByTag("unique_tag")
+            val ft =activity?.supportFragmentManager?.beginTransaction()
+            if (frg != null) {
+                ft?.detach(frg)
+                ft?.attach(frg)
+            }
+            ft?.commit()
+        }
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
