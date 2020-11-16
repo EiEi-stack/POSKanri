@@ -3,7 +3,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,11 +28,14 @@ class DisplayPurchaseFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var purchase_id: ArrayList<String>
-    private lateinit var item_name: ArrayList<String>
-    private lateinit var purchase_price: ArrayList<String>
-    private lateinit var item_qty: ArrayList<String>
-    private lateinit var customAdapter: CustomAdapter
+    private lateinit var purchaseId: ArrayList<String>
+    private lateinit var itemName: ArrayList<String>
+    private lateinit var purchasePrice: ArrayList<String>
+    private lateinit var itemQty: ArrayList<String>
+    private lateinit var imgViewNoData: ImageView
+    private lateinit var tvNoData: TextView
+
+    lateinit var customAdapter: CustomAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,20 +52,21 @@ class DisplayPurchaseFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_display_purchase, container, false)
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-        purchase_id = ArrayList<String>()
-        item_name = ArrayList<String>()
-        purchase_price = ArrayList<String>()
-        item_qty = ArrayList<String>()
+        imgViewNoData = view.findViewById<ImageView>(R.id.img_view_no_data)
+        tvNoData = view.findViewById<TextView>(R.id.tv_no_data)
+        purchaseId = ArrayList<String>()
+        itemName = ArrayList<String>()
+        purchasePrice = ArrayList<String>()
+        itemQty = ArrayList<String>()
         displayData()
         customAdapter =
             activity?.applicationContext?.let {
                 CustomAdapter(
-                    activity!!,
                     it,
-                    purchase_id,
-                    item_name,
-                    item_qty,
-                    purchase_price
+                    purchaseId,
+                    itemName,
+                    purchasePrice,
+                    itemQty
                 )
             }!!
         recyclerView.adapter = customAdapter
@@ -69,7 +74,7 @@ class DisplayPurchaseFragment : Fragment() {
         return view
     }
 
-    override fun startActivityForResult(intent: Intent?, requestCode: Int) {
+     override fun startActivityForResult(intent: Intent?, requestCode: Int) {
         super.startActivityForResult(intent, requestCode)
         if(requestCode ==1){
             val fragment = DisplayPurchaseFragment()
@@ -80,35 +85,27 @@ class DisplayPurchaseFragment : Fragment() {
             val fragmentTransaction = fragmentManager?.beginTransaction()
             fragmentTransaction?.replace(R.id.frame_content, newFragment)
             fragmentTransaction?.commit()
+            customAdapter.notifyDataSetChanged()
         }
     }
-    fun displayData() {
+    private fun displayData() {
         val db = activity?.applicationContext?.let { MyDatabaseHelper(it) }
 
         val cursor = db?.readAllData()
         if (cursor?.count == 0) {
-            Toast.makeText(activity?.applicationContext, "No data", Toast.LENGTH_SHORT).show()
+            imgViewNoData.visibility=View.VISIBLE
+            tvNoData.visibility=View.VISIBLE
 
         } else {
             while (cursor?.moveToNext()!!) {
-                cursor?.getString(0)?.let { purchase_id.add(it) }
-                cursor?.getString(1)?.let { item_name.add(it) }
-                cursor?.getString(2)?.let { purchase_price.add(it) }
-                cursor?.getString(3)?.let { item_qty.add(it) }
+                cursor?.getString(0)?.let { purchaseId.add(it) }
+                cursor?.getString(1)?.let { itemName.add(it) }
+                cursor?.getString(2)?.let { purchasePrice.add(it) }
+                cursor?.getString(3)?.let { itemQty.add(it) }
             }
-        }
-    }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode==1){
-                val frg = activity?.supportFragmentManager?.findFragmentByTag("unique_tag")
-            val ft =activity?.supportFragmentManager?.beginTransaction()
-            if (frg != null) {
-                ft?.detach(frg)
-                ft?.attach(frg)
-            }
-            ft?.commit()
+            imgViewNoData.visibility=View.GONE
+            tvNoData.visibility=View.GONE
         }
     }
     companion object {

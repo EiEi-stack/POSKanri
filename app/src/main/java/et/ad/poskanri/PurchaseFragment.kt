@@ -1,5 +1,6 @@
 package et.ad.poskanri
 
+import DisplayPurchaseFragment
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -69,7 +70,7 @@ class PurchaseFragment : Fragment() {
                 etPurchaseQty.text.clear()
                 etPurchaseComment.text.clear()
 
-                val fragment = SaleFragment()
+                val fragment = DisplayPurchaseFragment()
                 val fragmentManager = fragmentManager
                 val fragmentTransaction = fragmentManager?.beginTransaction()
                 fragmentTransaction?.replace(R.id.frame_content, fragment)

@@ -1,6 +1,7 @@
 package et.ad.poskanri
 
 import DisplayPurchaseFragment
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             else -> super.onOptionsItemSelected(item)
         }
     }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         val fragment: Fragment
         when (item.itemId) {
