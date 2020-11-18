@@ -18,9 +18,15 @@
     <string name="skip">スキップ</string>
     <string name="item_name">項目名</string>
     <string name="quantity">数量</string>
+    <string name="tax">税金</string>
+    <string name="size">サイズ</string>
+    <string name="type">種類</string>
+    <string name="pic">画像</string>
+    <string name="weight">重量</string>
     <string name="comment">コメント</string>
     <string name="register">登録する</string>
     <string name="update">更新する</string>
     <string name="delete">削除する</string>
     <string name="delete_all">全部削除する</string>
+    <string name="browse">ブラウズ</string>
 </resources>

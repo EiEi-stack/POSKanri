@@ -10,13 +10,11 @@ import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import et.ad.poskanri.dbclass.Purchase
 
 class CustomAdapter(
     private val context: Context,
-    private val purchase_id: ArrayList<String>,
-    private val purchase_item: ArrayList<String>,
-    private val purchase_qty: ArrayList<String>,
-    private val purchase_price: ArrayList<String>
+    private val purchase: MutableList<Purchase>
 ) : RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
     private lateinit var translateAnim: Animation
 
@@ -24,33 +22,35 @@ class CustomAdapter(
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.my_row, parent, false)
         return MyViewHolder(view)
-
-
     }
 
     override fun getItemCount(): Int {
-        return purchase_id.size
+        return purchase.size
     }
 
     override fun onBindViewHolder(holder: CustomAdapter.MyViewHolder, position: Int) {
-        holder.purchaseId.text = purchase_id[position]
-        holder.itemName.text = purchase_item[position]
-        holder.itemPrice.text = purchase_qty[position]+"￥"
-        holder.itemQty.text = purchase_price[position]
+        holder.purchaseId.text = purchase[position].purchaseId.toString()
+        holder.itemName.text = purchase[position].itemName
+        holder.itemPrice.text = purchase[position].purchasePrice.toString() + "￥"
+        holder.itemQty.text = purchase[position].itemQty.toString()
 
         holder.mainLayout.setOnClickListener(View.OnClickListener {
             val intent = Intent(context, UpdateActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.putExtra("id", purchase_id[position].toString())
-            intent.putExtra("item", purchase_item[position].toString())
-            intent.putExtra("price", purchase_qty[position].toString())
-            intent.putExtra("qty", purchase_price[position].toString())
+            intent.putExtra("id", purchase[position].purchaseId.toString())
+            intent.putExtra("item", purchase[position].itemName)
+            intent.putExtra("price", purchase[position].purchasePrice.toString())
+            intent.putExtra("qty", purchase[position].itemQty.toString())
+            intent.putExtra("tax", purchase[position].tax.toString())
+            intent.putExtra("size", purchase[position].size.toString())
+            intent.putExtra("type", purchase[position].itemType.toString())
+            intent.putExtra("weight", purchase[position].itemWeight.toString())
+            intent.putExtra("comment", purchase[position].comment.toString())
             context.startActivity(intent)
         })
-        translateAnim=AnimationUtils.loadAnimation(context,R.anim.translate_anim)
-        holder.mainLayout.animation=translateAnim
+        translateAnim = AnimationUtils.loadAnimation(context, R.anim.translate_anim)
+        holder.mainLayout.animation = translateAnim
     }
-
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var purchaseId: TextView = itemView.findViewById(R.id.txt_purchase_id)

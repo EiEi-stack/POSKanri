@@ -10,7 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import et.ad.poskanri.CustomAdapter
 import et.ad.poskanri.MyDatabaseHelper
+import et.ad.poskanri.MyDatabaseHelper.Companion.COL_ITEM_NAME
+import et.ad.poskanri.MyDatabaseHelper.Companion.COL_ITEM_QTY
+import et.ad.poskanri.MyDatabaseHelper.Companion.COL_PURCHASE_ID
+import et.ad.poskanri.MyDatabaseHelper.Companion.COL_PURCHASE_PRICE
 import et.ad.poskanri.R
+import et.ad.poskanri.dbclass.Purchase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,10 +33,7 @@ class DisplayPurchaseFragment : Fragment() {
     private var param2: String? = null
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var purchaseId: ArrayList<String>
-    private lateinit var itemName: ArrayList<String>
-    private lateinit var purchasePrice: ArrayList<String>
-    private lateinit var itemQty: ArrayList<String>
+    private lateinit var purchaseItem:MutableList<Purchase>
     private lateinit var imgViewNoData: ImageView
     private lateinit var tvNoData: TextView
 
@@ -54,19 +56,12 @@ class DisplayPurchaseFragment : Fragment() {
         recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         imgViewNoData = view.findViewById<ImageView>(R.id.img_view_no_data)
         tvNoData = view.findViewById<TextView>(R.id.tv_no_data)
-        purchaseId = ArrayList<String>()
-        itemName = ArrayList<String>()
-        purchasePrice = ArrayList<String>()
-        itemQty = ArrayList<String>()
-        displayData()
-        customAdapter =
+        purchaseItem= this!!.displayData()!!
+                customAdapter =
             activity?.applicationContext?.let {
                 CustomAdapter(
                     it,
-                    purchaseId,
-                    itemName,
-                    purchasePrice,
-                    itemQty
+                    purchaseItem
                 )
             }!!
         recyclerView.adapter = customAdapter
@@ -88,26 +83,28 @@ class DisplayPurchaseFragment : Fragment() {
             customAdapter.notifyDataSetChanged()
         }
     }
-    private fun displayData() {
+    private fun displayData(): MutableList<Purchase>? {
         val db = activity?.applicationContext?.let { MyDatabaseHelper(it) }
 
-        val cursor = db?.readAllData()
-        if (cursor?.count == 0) {
+        val list = db?.readAllData()
+        if (list?.size == 0) {
             imgViewNoData.visibility=View.VISIBLE
             tvNoData.visibility=View.VISIBLE
 
         } else {
-            while (cursor?.moveToNext()!!) {
-                cursor?.getString(0)?.let { purchaseId.add(it) }
-                cursor?.getString(1)?.let { itemName.add(it) }
-                cursor?.getString(2)?.let { purchasePrice.add(it) }
-                cursor?.getString(3)?.let { itemQty.add(it) }
+
+
+//                cursor?.getString(0)?.let { purchase.add() }
+//                cursor?.getString(1)?.let { itemName.add(it) }
+//                cursor?.getString(2)?.let { purchasePrice.add(it) }
+//                cursor?.getString(3)?.let { itemQty.add(it) }
             }
 
             imgViewNoData.visibility=View.GONE
             tvNoData.visibility=View.GONE
+        return list
         }
-    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

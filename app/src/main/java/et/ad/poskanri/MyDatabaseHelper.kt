@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import et.ad.poskanri.dbclass.Purchase
 
 class MyDatabaseHelper(
     context: Context
@@ -17,6 +18,10 @@ class MyDatabaseHelper(
                     COL_PURCHASE_PRICE + " INTEGER, " +
                     COL_ITEM_QTY + " TEXT, " +
                     COL_TAX + " INTEGER, " +
+                    COL_SIZE + " TEXT, " +
+                    COL_ITEM_TYPE + " TEXT, " +
+                    COL_ITEM_WEIGHT + " TEXT, " +
+                    COL_ITEM_PIC + " BLOB, " +
                     COL_COMMENT + " TEXT);"
         db?.execSQL(query)
     }
@@ -35,46 +40,105 @@ class MyDatabaseHelper(
         const val COL_PURCHASE_PRICE = "purchase_price"
         const val COL_ITEM_QTY = "item_qty"
         const val COL_TAX = "tax"
+        const val COL_SIZE = "size"
+        const val COL_ITEM_TYPE = "item_type"
+        const val COL_ITEM_WEIGHT = "item_weight"
+        const val COL_ITEM_PIC = "item_pic"
         const val COL_COMMENT = "comment"
 
     }
 
-    fun addPurchaseItem(itemName: String, price: Int, qty: Int,comment:String):Long {
+    fun addPurchaseItem(purchase: Purchase): Long {
         val db = this.writableDatabase
         val cv = ContentValues()
-        cv.put(COL_ITEM_NAME, itemName)
-        cv.put(COL_PURCHASE_PRICE, price)
-        cv.put(COL_ITEM_QTY, qty)
-        cv.put(COL_COMMENT, comment)
+        cv.put(COL_ITEM_NAME, purchase.itemName)
+        cv.put(COL_PURCHASE_PRICE, purchase.purchasePrice)
+        cv.put(COL_ITEM_QTY, purchase.itemQty)
+        cv.put(COL_TAX, purchase.tax)
+        cv.put(COL_SIZE, purchase.size)
+        cv.put(COL_ITEM_TYPE, purchase.itemType)
+        cv.put(COL_ITEM_WEIGHT, purchase.itemWeight)
+        cv.put(COL_ITEM_PIC, purchase.itemPic)
+        cv.put(COL_COMMENT, purchase.comment)
+        cv.put(COL_COMMENT, purchase.image)
         return db.insert(TABLE_NAME, null, cv)
     }
 
 
-    fun readAllData(): Cursor? {
-        var cursor: Cursor? = null
+    fun readAllData(): MutableList<Purchase> {
         val db = this.readableDatabase
+        val list: MutableList<Purchase> = ArrayList()
         if (db != null) {
-            cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
-
+            val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
+            if (cursor?.moveToFirst()!!) {
+                do {
+                    val purchaseItem = Purchase()
+                    purchaseItem.purchaseId = cursor.getInt(cursor.getColumnIndex(COL_PURCHASE_ID))
+                    purchaseItem.itemName = cursor.getString(cursor.getColumnIndex(COL_ITEM_NAME))
+                    purchaseItem.purchasePrice = cursor.getInt(
+                        cursor.getColumnIndex(
+                            COL_PURCHASE_PRICE
+                        )
+                    )
+                    purchaseItem.itemQty = cursor.getInt(
+                        cursor.getColumnIndex(
+                            COL_ITEM_QTY
+                        )
+                    )
+                    purchaseItem.tax = cursor.getInt(
+                        cursor.getColumnIndex(
+                            COL_TAX
+                        )
+                    )
+                    purchaseItem.size = cursor.getString(
+                        cursor.getColumnIndex(
+                            COL_SIZE
+                        )
+                    )
+                    purchaseItem.itemType = cursor.getString(
+                        cursor.getColumnIndex(
+                            COL_ITEM_TYPE
+                        )
+                    )
+                    purchaseItem.itemWeight = cursor.getString(
+                        cursor.getColumnIndex(
+                            COL_ITEM_WEIGHT
+                        )
+                    )
+                    purchaseItem.comment = cursor.getString(
+                        cursor.getColumnIndex(
+                            COL_COMMENT
+                        )
+                    )
+                    list.add(purchaseItem)
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
         }
-        return cursor
+        return list
     }
 
-    fun updateData(rowId:String,purchaseItem:String,purchasePrice:Int,purchaseQty:Int):Int{
-        val db=this.writableDatabase
-        val cv= ContentValues()
-        cv.put(COL_ITEM_NAME,purchaseItem)
-        cv.put(COL_PURCHASE_PRICE,purchasePrice)
-        cv.put(COL_ITEM_QTY,purchaseQty)
-        return db.update(TABLE_NAME,cv,"$COL_PURCHASE_ID=?", arrayOf(rowId))
-    }
-    fun deleteOneRow(rowId:String):Int{
+    fun updateData(rowId: String, purchase: Purchase): Int {
         val db = this.writableDatabase
-        return db.delete(TABLE_NAME,"$COL_PURCHASE_ID=?", arrayOf(rowId))
+        val cv = ContentValues()
+        cv.put(COL_ITEM_NAME, purchase.itemName)
+        cv.put(COL_PURCHASE_PRICE, purchase.purchasePrice)
+        cv.put(COL_ITEM_QTY, purchase.itemQty)
+        cv.put(COL_TAX, purchase.tax)
+        cv.put(COL_SIZE, purchase.size)
+        cv.put(COL_ITEM_TYPE, purchase.itemType)
+        cv.put(COL_ITEM_WEIGHT, purchase.itemWeight)
+        cv.put(COL_COMMENT, purchase.comment)
+        return db.update(TABLE_NAME, cv, "$COL_PURCHASE_ID=?", arrayOf(rowId))
+    }
+
+    fun deleteOneRow(rowId: String): Int {
+        val db = this.writableDatabase
+        return db.delete(TABLE_NAME, "$COL_PURCHASE_ID=?", arrayOf(rowId))
 
     }
 
-    fun deleteAllData(){
+    fun deleteAllData() {
         val db = this.writableDatabase
         db.execSQL("DELETE FROM $TABLE_NAME")
     }

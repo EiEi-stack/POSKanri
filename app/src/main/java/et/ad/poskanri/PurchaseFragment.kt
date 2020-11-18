@@ -1,7 +1,11 @@
 package et.ad.poskanri
 
 import DisplayPurchaseFragment
+import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,9 +14,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import et.ad.poskanri.dbclass.Purchase
 
 // TODO: Rename parameter arguments, choose names that match
@@ -48,20 +52,28 @@ class PurchaseFragment : Fragment() {
         val etPurchasePrice = view.findViewById<EditText>(R.id.et_purchase_price)
         val etPurchaseQty = view.findViewById<EditText>(R.id.et_purchase_qty)
         val etPurchaseComment = view.findViewById<EditText>(R.id.et_purchase_comment)
+        val etPurchaseTax = view.findViewById<EditText>(R.id.et_purchase_tax)
+        val etItemSize = view.findViewById<EditText>(R.id.et_purchase_size)
+        val etItemType = view.findViewById<EditText>(R.id.et_purchase_type)
+        val etItemWeight = view.findViewById<EditText>(R.id.et_purchase_weight)
+        val etItemPic = view.findViewById<ImageView>(R.id.et_purchase_pic)
+        val btnBrowse = view.findViewById<Button>(R.id.btn_browse_purchase_img)
 
         btnRegister.setOnClickListener(View.OnClickListener {
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
-//            val purchase = Purchase()
-//            purchase.itemName = etPurchaseItemName.text.toString().trim()
-//            purchase.purchasePrice = Integer.parseInt(etPurchasePrice.text.toString().trim())
-//            purchase.itemQty = Integer.parseInt(etPurchaseQty.text.toString().trim())
-//            purchase.comment = etPurchaseComment.text.toString().trim()
+            val purchase = Purchase()
+            purchase.itemName = etPurchaseItemName.text.toString().trim()
+            purchase.purchasePrice = Integer.parseInt(etPurchasePrice.text.toString().trim())
+            purchase.itemQty = Integer.parseInt(etPurchaseQty.text.toString().trim())
+            purchase.comment = etPurchaseComment.text.toString().trim()
+            purchase.tax = Integer.parseInt(etPurchaseTax.text.toString().trim())
+            purchase.size = etItemSize.text.toString().trim()
+            purchase.itemType = etItemType.text.toString().trim()
+            purchase.itemWeight = etItemWeight.text.toString().trim()
 
-            val dbHelper= MyDatabaseHelper(activity!!.applicationContext)
-            val isSuccess =dbHelper.addPurchaseItem(etPurchaseItemName.text.toString().trim(),
-                Integer.valueOf(etPurchasePrice.text.toString().trim()),
-                Integer.valueOf(etPurchaseQty.text.toString().trim()),etPurchaseComment.text.toString().trim())
+            val dbHelper = MyDatabaseHelper(activity!!.applicationContext)
+            val isSuccess = dbHelper.addPurchaseItem(purchase)
 
             if (isSuccess.toInt() != -1) {
                 Toast.makeText(context, "追加する成功しました", Toast.LENGTH_SHORT).show()
@@ -69,6 +81,11 @@ class PurchaseFragment : Fragment() {
                 etPurchasePrice.text.clear()
                 etPurchaseQty.text.clear()
                 etPurchaseComment.text.clear()
+                etPurchaseTax.text.clear()
+                etItemSize.text.clear()
+                etItemType.text.clear()
+                etItemWeight.text.clear()
+//                etItemPic.text.clear()
 
                 val fragment = DisplayPurchaseFragment()
                 val fragmentManager = fragmentManager
@@ -77,11 +94,32 @@ class PurchaseFragment : Fragment() {
                 fragmentTransaction?.commit()
             }
         })
+        btnBrowse.setOnClickListener(View.OnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (activity?.applicationContext?.let { it1 ->
+                        checkSelfPermission(
+                            it1,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                    } == PackageManager.PERMISSION_DENIED) {
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+                    requestPermissions(permissions, PERMISSION_CODE)
 
-
+                } else {
+                    pickImageFromGallery();
+                }
+            } else {
+                pickImageFromGallery();
+            }
+        })
         return view
     }
 
+    private fun pickImageFromGallery() {
+    val intent = Intent(Intent.ACTION_PICK)
+        intent.type="image/*"
+        startActivity(intent)
+    }
 
     companion object {
         /**
@@ -92,6 +130,8 @@ class PurchaseFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment PurchaseFragment.
          */
+        private val PERMISSION_CODE = 1001
+
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
