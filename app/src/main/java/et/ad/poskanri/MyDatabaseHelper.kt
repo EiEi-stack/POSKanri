@@ -58,9 +58,8 @@ class MyDatabaseHelper(
         cv.put(COL_SIZE, purchase.size)
         cv.put(COL_ITEM_TYPE, purchase.itemType)
         cv.put(COL_ITEM_WEIGHT, purchase.itemWeight)
-        cv.put(COL_ITEM_PIC, purchase.itemPic)
+//        cv.put(COL_ITEM_PIC, purchase.itemPic)
         cv.put(COL_COMMENT, purchase.comment)
-        cv.put(COL_COMMENT, purchase.image)
         return db.insert(TABLE_NAME, null, cv)
     }
 

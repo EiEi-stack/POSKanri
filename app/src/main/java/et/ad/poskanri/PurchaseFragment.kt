@@ -2,11 +2,18 @@ package et.ad.poskanri
 
 import DisplayPurchaseFragment
 import android.Manifest
+import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +40,7 @@ class PurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var imgViewPurchase:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -56,7 +64,7 @@ class PurchaseFragment : Fragment() {
         val etItemSize = view.findViewById<EditText>(R.id.et_purchase_size)
         val etItemType = view.findViewById<EditText>(R.id.et_purchase_type)
         val etItemWeight = view.findViewById<EditText>(R.id.et_purchase_weight)
-        val etItemPic = view.findViewById<ImageView>(R.id.et_purchase_pic)
+        imgViewPurchase= view.findViewById<ImageView>(R.id.et_purchase_pic)
         val btnBrowse = view.findViewById<Button>(R.id.btn_browse_purchase_img)
 
         btnRegister.setOnClickListener(View.OnClickListener {
@@ -116,9 +124,21 @@ class PurchaseFragment : Fragment() {
     }
 
     private fun pickImageFromGallery() {
-    val intent = Intent(Intent.ACTION_PICK)
-        intent.type="image/*"
-        startActivity(intent)
+//    val intent = Intent()
+//        intent.type="image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        startActivityForResult(Intent.createChooser(intent,"Select Picture"),RESULT_CODE)
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== RESULT_CODE && resultCode == RESULT_OK && data!=null && data.data!=null){
+            val imageFilePath = data.data
+            val imageToStore = MediaStore.Images.Media.getBitmap(activity?.contentResolver,imageFilePath)
+            imgViewPurchase.setImageBitmap(imageToStore)
+
+        }
     }
 
     companion object {
@@ -130,7 +150,8 @@ class PurchaseFragment : Fragment() {
          * @param param2 Parameter 2.
          * @return A new instance of fragment PurchaseFragment.
          */
-        private val PERMISSION_CODE = 1001
+        private const val PERMISSION_CODE = 1001
+        private const val RESULT_CODE = 1
 
         // TODO: Rename and change types and number of parameters
         @JvmStatic

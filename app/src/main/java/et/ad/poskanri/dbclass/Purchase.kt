@@ -11,5 +11,5 @@ class Purchase {
     var itemWeight = ""
     var itemPic = ""
     var comment = ""
-    var image = ByteArray(1)
+    var image = ByteArray(8192)
 }
