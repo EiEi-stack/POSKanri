@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) { // initial transaction should be wrapped like this
             var fragment: Fragment
-            fragment = DisplayPurchaseFragment()
+            fragment = PurchaseFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_content, fragment)
                 .commitAllowingStateLoss()

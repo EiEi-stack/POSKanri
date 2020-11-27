@@ -24,13 +24,9 @@
 
                 <TextView
                     android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/add_item_label"
                     android:layout_marginTop="8dp"
-                    android:layout_weight="2"
                     android:text="@string/pic"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,21 +39,9 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.866"
-                    app:layout_constraintStart_toEndOf="@+id/textView2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/btn_browse_purchase_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/browse"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.704"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/et_purchase_pic" />
-
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -67,20 +51,12 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/item_name"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="@string/item_name" />
 
                 <EditText
                     android:id="@+id/et_purchase_item_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
@@ -91,20 +67,12 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="購入金額"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="購入金額" />
 
                 <EditText
                     android:id="@+id/et_purchase_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
@@ -115,20 +83,12 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/quantity"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="@string/quantity" />
 
                 <EditText
                     android:id="@+id/et_purchase_qty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
@@ -139,20 +99,12 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/tax"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="@string/tax" />
 
                 <EditText
                     android:id="@+id/et_purchase_tax"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
@@ -163,20 +115,12 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/size"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="@string/size" />
 
                 <EditText
                     android:id="@+id/et_purchase_size"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
@@ -187,20 +131,12 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/type"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="@string/type" />
 
                 <EditText
                     android:id="@+id/et_purchase_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
@@ -211,20 +147,12 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/weight"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="@string/weight" />
 
                 <EditText
                     android:id="@+id/et_purchase_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
@@ -236,30 +164,24 @@
                 android:paddingLeft="4dp">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="@string/comment"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_label"
+                    android:text="@string/comment" />
 
                 <EditText
                     android:id="@+id/et_purchase_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    style="@style/add_item_editText" />
 
             </LinearLayout>
 
             <Button
                 android:id="@+id/btn_purchase_register"
+                style="@style/add_btn_style"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="4dp"
+                android:background="@drawable/add_item_background"
                 android:text="@string/register"
                 android:textAllCaps="false" />
         </LinearLayout>
