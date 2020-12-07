@@ -6,10 +6,10 @@ class Purchase {
     var purchasePrice = 0
     var itemQty = 0
     var tax = 0
-    var size = ""
-    var itemType = ""
-    var itemWeight = ""
-    var itemPic = ""
-    var comment = ""
+    var size :String= ""
+    var itemType :String= ""
+    var itemWeight:String = ""
+    var itemPic :String= ""
+    var comment :String= ""
     var image = ByteArray(8192)
 }

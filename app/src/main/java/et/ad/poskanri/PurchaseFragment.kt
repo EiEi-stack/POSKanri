@@ -44,7 +44,7 @@ class PurchaseFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var imgViewPurchase:ImageView
+    private lateinit var imgViewPurchase: ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -68,45 +68,53 @@ class PurchaseFragment : Fragment() {
         val etItemSize = view.findViewById<EditText>(R.id.et_purchase_size)
         val etItemType = view.findViewById<EditText>(R.id.et_purchase_type)
         val etItemWeight = view.findViewById<EditText>(R.id.et_purchase_weight)
-        imgViewPurchase= view.findViewById<ImageView>(R.id.et_purchase_pic)
+        imgViewPurchase = view.findViewById<ImageView>(R.id.et_purchase_pic)
         imgViewPurchase.setOnClickListener(View.OnClickListener {
             getImageFromGallery()
         })
         val util = Util()
-        val imageByte =util.getBytes(imgViewPurchase.drawable.toBitmap())
+        val imageByte = util.getBytes(imgViewPurchase.drawable.toBitmap())
         btnRegister.setOnClickListener(View.OnClickListener {
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
             val purchase = Purchase()
-            purchase.itemName = etPurchaseItemName?.text.toString().trim()
-            purchase.purchasePrice = Integer.parseInt(etPurchasePrice?.text.toString().trim())
-            purchase.itemQty = Integer.parseInt(etPurchaseQty?.text.toString().trim())
-            purchase.comment = etPurchaseComment?.text.toString().trim()
-            purchase.tax = Integer.parseInt(etPurchaseTax?.text.toString().trim())
-            purchase.size = etItemSize?.text.toString().trim()
-            purchase.itemType = etItemType?.text.toString().trim()
-            purchase.itemWeight = etItemWeight?.text.toString().trim()
-            purchase.image = imageByte
+            if (etPurchaseItemName.text.toString() != "" && etPurchasePrice.text.toString() != "" && etPurchaseComment.text.toString() != "" && etPurchaseTax.text.toString() != ""
+                && etItemSize.text.toString() != "" && etItemType.text.toString() != "" && etItemWeight.text.toString() != "" && imageByte != null
+            ) {
+                purchase.itemName = etPurchaseItemName.text?.trim().toString()
+                purchase.purchasePrice =
+                    etPurchasePrice.text?.toString()?.trim()?.let { it1 -> Integer.parseInt(it1) }!!
+                purchase.comment = etPurchaseComment.text?.toString()?.trim().toString()
+                purchase.tax =
+                    etPurchaseTax.text?.toString()?.trim()?.let { it1 -> Integer.parseInt(it1) }!!
+                purchase.size = etItemSize.text?.toString()?.trim().toString()
+                purchase.itemType = etItemType.text?.toString()?.trim().toString()
+                purchase.itemWeight = etItemWeight.text?.toString()?.trim().toString()
+                purchase.image = imageByte
 
-            val dbHelper = MyDatabaseHelper(activity!!.applicationContext)
-            val isSuccess = dbHelper.addPurchaseItem(purchase)
 
-            if (isSuccess.toInt() != -1) {
-                Toast.makeText(context, "追加する成功しました", Toast.LENGTH_SHORT).show()
-                etPurchaseItemName.text.clear()
-                etPurchasePrice.text.clear()
-                etPurchaseQty.text.clear()
-                etPurchaseComment.text.clear()
-                etPurchaseTax.text.clear()
-                etItemSize.text.clear()
-                etItemType.text.clear()
-                etItemWeight.text.clear()
+                val dbHelper = MyDatabaseHelper(activity!!.applicationContext)
+                val isSuccess = dbHelper.addPurchaseItem(purchase)
 
-                val fragment = DisplayPurchaseFragment()
-                val fragmentManager = fragmentManager
-                val fragmentTransaction = fragmentManager?.beginTransaction()
-                fragmentTransaction?.replace(R.id.frame_content, fragment)
-                fragmentTransaction?.commit()
+                if (isSuccess.toInt() != -1) {
+                    Toast.makeText(context, "追加する成功しました", Toast.LENGTH_SHORT).show()
+                    etPurchaseItemName.text.clear()
+                    etPurchasePrice.text.clear()
+                    etPurchaseQty.text.clear()
+                    etPurchaseComment.text.clear()
+                    etPurchaseTax.text.clear()
+                    etItemSize.text.clear()
+                    etItemType.text.clear()
+                    etItemWeight.text.clear()
+
+                    val fragment = DisplayPurchaseFragment()
+                    val fragmentManager = fragmentManager
+                    val fragmentTransaction = fragmentManager?.beginTransaction()
+                    fragmentTransaction?.replace(R.id.frame_content, fragment)
+                    fragmentTransaction?.commit()
+                } else {
+                    Toast.makeText(context,"Your data is blank",Toast.LENGTH_SHORT).show()
+                }
             }
         })
         return view
@@ -114,16 +122,16 @@ class PurchaseFragment : Fragment() {
 
     private fun getImageFromGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(intent,RESULT_CODE)
+        startActivityForResult(intent, RESULT_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(null!=data){
-            val selectedImage=data.data
+        if (null != data) {
+            val selectedImage = data.data
             imgViewPurchase.setImageURI(selectedImage)
-        }else{
-            Toast.makeText(context,"Sorry,Can't pick up image",Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(context, "Sorry,Can't pick up image", Toast.LENGTH_SHORT).show()
         }
     }
 

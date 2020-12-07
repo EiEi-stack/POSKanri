@@ -13,5 +13,9 @@
         android:id="@+id/nav_customer_detail"
         android:icon="@drawable/ic_customer"
         android:title="@string/customer_detail"/>
+    <item
+        android:id="@+id/nav_display_purchase"
+        android:icon="@drawable/ic_customer"
+        android:title="@string/display_purchase"/>
 </group>
 </menu>

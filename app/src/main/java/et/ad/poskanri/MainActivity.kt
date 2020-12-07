@@ -72,6 +72,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .commitAllowingStateLoss()
                 title = getString(R.string.customer_detail)
             }
+            R.id.nav_display_purchase -> {
+                fragment = DisplayPurchaseFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.frame_content, fragment)
+                    .commitAllowingStateLoss()
+                title = getString(R.string.customer_detail)
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
