@@ -46,6 +46,7 @@ class CustomAdapter(
             intent.putExtra("type", purchase[position].itemType.toString())
             intent.putExtra("weight", purchase[position].itemWeight.toString())
             intent.putExtra("comment", purchase[position].comment.toString())
+            intent.putExtra("image", purchase[position].image.toString())
             context.startActivity(intent)
         })
         translateAnim = AnimationUtils.loadAnimation(context, R.anim.translate_anim)

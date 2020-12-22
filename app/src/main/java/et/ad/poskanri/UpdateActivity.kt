@@ -1,14 +1,20 @@
 package et.ad.poskanri
 
 import android.content.DialogInterface
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.drawToBitmap
 import et.ad.poskanri.dbclass.Purchase
+import java.io.ByteArrayInputStream
 
 class UpdateActivity : AppCompatActivity() {
     lateinit var purchseItem: EditText
@@ -21,6 +27,7 @@ class UpdateActivity : AppCompatActivity() {
     lateinit var purchaseComment: EditText
     lateinit var updateBtn: Button
     lateinit var btnDelete: Button
+    lateinit var purchaseImage: ImageView
     lateinit var id: String
     lateinit var item: String
     lateinit var price: String
@@ -30,6 +37,7 @@ class UpdateActivity : AppCompatActivity() {
     lateinit var type: String
     lateinit var weight: String
     lateinit var comment: String
+    lateinit var imageUpdate: ByteArray
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
@@ -41,6 +49,7 @@ class UpdateActivity : AppCompatActivity() {
         purchaseType = findViewById(R.id.et_purchase_type2)
         purchaseWeight = findViewById(R.id.et_purchase_weight2)
         purchaseComment = findViewById(R.id.et_purchase_comment2)
+        purchaseImage = findViewById(R.id.img_update)
         updateBtn = findViewById(R.id.btn_update)
         btnDelete = findViewById(R.id.btn_delete)
 
@@ -56,6 +65,8 @@ class UpdateActivity : AppCompatActivity() {
             purchase.itemType = purchaseType.text.toString()
             purchase.itemWeight = purchaseWeight.text.toString()
             purchase.comment = purchaseComment.text.toString()
+            val util = Util()
+            purchase.image = util.getBytes(purchaseImage.drawable.toBitmap())
             val dbHelper = MyDatabaseHelper(this@UpdateActivity)
             val result = dbHelper.updateData(id, purchase)
             if (result == -1) {
@@ -92,6 +103,7 @@ class UpdateActivity : AppCompatActivity() {
             type = intent.getStringExtra("type")
             weight = intent.getStringExtra("weight")
             comment = intent.getStringExtra("comment")
+            imageUpdate = intent.getStringExtra("image").toByteArray()
 
             purchseItem.setText(item)
             purchasePrice.setText(price)
@@ -101,6 +113,8 @@ class UpdateActivity : AppCompatActivity() {
             purchaseType.setText(type)
             purchaseWeight.setText(weight)
             purchaseComment.setText(comment)
+            val util = Util()
+            purchaseImage.setImageBitmap(util.getImage(imageUpdate))
 
         } else {
             Toast.makeText(applicationContext, "No Intent data", Toast.LENGTH_SHORT).show()

@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import androidx.core.database.getBlobOrNull
+import androidx.core.database.getIntOrNull
 import et.ad.poskanri.dbclass.Purchase
 
 class MyDatabaseHelper(
@@ -58,7 +60,7 @@ class MyDatabaseHelper(
         cv.put(COL_SIZE, purchase.size)
         cv.put(COL_ITEM_TYPE, purchase.itemType)
         cv.put(COL_ITEM_WEIGHT, purchase.itemWeight)
-//        cv.put(COL_ITEM_PIC, purchase.itemPic)
+        cv.put(COL_ITEM_PIC, purchase.image)
         cv.put(COL_COMMENT, purchase.comment)
         return db.insert(TABLE_NAME, null, cv)
     }
@@ -109,6 +111,10 @@ class MyDatabaseHelper(
                             COL_COMMENT
                         )
                     )
+
+                    if (cursor.getBlob(cursor.getColumnIndex(COL_ITEM_PIC)) != null) {
+                        purchaseItem.image = cursor.getBlob(cursor.getColumnIndex(COL_ITEM_PIC))
+                    }
                     list.add(purchaseItem)
                 } while (cursor.moveToNext())
                 cursor.close()

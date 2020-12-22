@@ -9,7 +9,6 @@ class Purchase {
     var size :String= ""
     var itemType :String= ""
     var itemWeight:String = ""
-    var itemPic :String= ""
     var comment :String= ""
     var image = ByteArray(8192)
 }
