@@ -1,8 +1,6 @@
 package et.ad.poskanri
 
 import android.content.DialogInterface
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,9 +10,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.view.drawToBitmap
-import et.ad.poskanri.dbclass.Purchase
-import java.io.ByteArrayInputStream
+import et.ad.poskanri.dbclass.PurchaseEntity
 
 class UpdateActivity : AppCompatActivity() {
     lateinit var purchseItem: EditText
@@ -56,7 +52,7 @@ class UpdateActivity : AppCompatActivity() {
         getIntentData()
         updateBtn.setOnClickListener(View.OnClickListener {
 
-            val purchase = Purchase()
+            val purchase = PurchaseEntity()
             purchase.itemName = purchseItem.text.toString()
             purchase.purchasePrice = Integer.parseInt(purchasePrice.text.toString())
             purchase.itemQty = Integer.parseInt(purchaseQty.text.toString())

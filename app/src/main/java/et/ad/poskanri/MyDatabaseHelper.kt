@@ -2,12 +2,9 @@ package et.ad.poskanri
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import androidx.core.database.getBlobOrNull
-import androidx.core.database.getIntOrNull
-import et.ad.poskanri.dbclass.Purchase
+import et.ad.poskanri.dbclass.PurchaseEntity
 
 class MyDatabaseHelper(
     context: Context
@@ -50,7 +47,7 @@ class MyDatabaseHelper(
 
     }
 
-    fun addPurchaseItem(purchase: Purchase): Long {
+    fun addPurchaseItem(purchase: PurchaseEntity): Long {
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.put(COL_ITEM_NAME, purchase.itemName)
@@ -66,14 +63,14 @@ class MyDatabaseHelper(
     }
 
 
-    fun readAllData(): MutableList<Purchase> {
+    fun readAllData(): MutableList<PurchaseEntity> {
         val db = this.readableDatabase
-        val list: MutableList<Purchase> = ArrayList()
+        val list: MutableList<PurchaseEntity> = ArrayList()
         if (db != null) {
             val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
             if (cursor?.moveToFirst()!!) {
                 do {
-                    val purchaseItem = Purchase()
+                    val purchaseItem = PurchaseEntity()
                     purchaseItem.purchaseId = cursor.getInt(cursor.getColumnIndex(COL_PURCHASE_ID))
                     purchaseItem.itemName = cursor.getString(cursor.getColumnIndex(COL_ITEM_NAME))
                     purchaseItem.purchasePrice = cursor.getInt(
@@ -123,7 +120,7 @@ class MyDatabaseHelper(
         return list
     }
 
-    fun updateData(rowId: String, purchase: Purchase): Int {
+    fun updateData(rowId: String, purchase: PurchaseEntity): Int {
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.put(COL_ITEM_NAME, purchase.itemName)

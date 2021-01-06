@@ -1,21 +1,10 @@
 package et.ad.poskanri
 
 import DisplayPurchaseFragment
-import android.Manifest
-import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.getBitmap
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,10 +14,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.content.PermissionChecker.checkSelfPermission
 import androidx.core.graphics.drawable.toBitmap
-import et.ad.poskanri.dbclass.Purchase
-import java.io.File
+import et.ad.poskanri.dbclass.PurchaseEntity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,7 +64,7 @@ class PurchaseFragment : Fragment() {
         btnRegister.setOnClickListener(View.OnClickListener {
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
-            val purchase = Purchase()
+            val purchase = PurchaseEntity()
             if (etPurchaseItemName.text.toString() != "" && etPurchasePrice.text.toString() != "" && etPurchaseComment.text.toString() != "" && etPurchaseTax.text.toString() != ""
                 && etItemSize.text.toString() != "" && etItemType.text.toString() != "" && etItemWeight.text.toString() != "" && imageByte != null
             ) {

@@ -10,11 +10,11 @@ import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import et.ad.poskanri.dbclass.Purchase
+import et.ad.poskanri.dbclass.PurchaseEntity
 
 class CustomAdapter(
     private val context: Context,
-    private val purchase: MutableList<Purchase>
+    private val purchase: MutableList<PurchaseEntity>
 ) : RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
     private lateinit var translateAnim: Animation
 
