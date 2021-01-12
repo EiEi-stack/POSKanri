@@ -6,161 +6,197 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
-    tools:context=".UpdateActivity">
-<ScrollView
+    tools:context=".UpdateActivity"> <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:ignore="MissingConstraints">
-    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/img_update"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="24dp"
-            android:layout_weight="1"
-            android:src="@drawable/default_purchase_image"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.678"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/et_item_name2"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="@string/item_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_update"
-            tools:ignore="MissingConstraints" />
+            android:layout_margin="4dp"
+            android:orientation="horizontal"
+            android:paddingLeft="4dp">
 
-    <EditText
-        android:id="@+id/et_item_price2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/purchase"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_item_name2" />
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/add_item_label"
+                android:layout_marginTop="8dp"
+                android:text="@string/pic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_item_qty2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/quantity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_item_price2" />
+            <ImageView
+                android:id="@+id/img_update"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_weight="1"
+                android:src="@drawable/default_purchase_image"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/add_item_label"
+                android:text="@string/item_name" />
+
+            <EditText
+                android:id="@+id/et_item_name2"
+                style="@style/add_item_editText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/add_item_label"
+                android:text="購入金額" />
+
+            <EditText
+                android:id="@+id/et_item_price2"
+                style="@style/add_item_editText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/add_item_label"
+                android:text="@string/quantity" />
+
+            <EditText
+                android:id="@+id/et_item_qty2"
+                style="@style/add_item_editText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/add_item_label"
+                android:text="@string/tax" />
+
+            <EditText
+                android:id="@+id/et_purchase_tax2"
+                style="@style/add_item_editText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/add_item_label"
+                android:text="@string/size" />
+
+            <EditText
+                android:id="@+id/et_purchase_size2"
+                style="@style/add_item_editText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/add_item_label"
+                android:text="@string/type" />
+
+            <EditText
+                android:id="@+id/et_purchase_type2"
+                style="@style/add_item_editText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
+
+            <TextView
+                style="@style/add_item_label"
+                android:text="@string/weight" />
+
+            <EditText
+                android:id="@+id/et_purchase_weight2"
+                style="@style/add_item_editText" />
+
+        </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/et_purchase_tax2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="14sp"
-        android:text="@string/tax"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_item_qty2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:paddingLeft="4dp">
 
+            <TextView
+                style="@style/add_item_label"
+                android:text="@string/comment" />
 
-    <EditText
-        android:id="@+id/et_purchase_size2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="14sp"
-        android:text="@string/size"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_purchase_tax2" />
+            <EditText
+                android:id="@+id/et_purchase_comment2"
+                style="@style/add_item_editText" />
 
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_purchase_type2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="14sp"
-        android:text="@string/type"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_purchase_size2" />
+        <Button
+            android:id="@+id/btn_update"
+            style="@style/add_btn_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/add_item_background"
+            android:text="@string/update"
+            android:textAllCaps="false" />
 
-
-    <EditText
-        android:id="@+id/et_purchase_weight2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="14sp"
-        android:text="@string/weight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_purchase_type2" />
-
-
-    <EditText
-        android:id="@+id/et_purchase_pic2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="14sp"
-        android:text="@string/pic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_purchase_weight2" />
-
-
-    <EditText
-        android:id="@+id/et_purchase_comment2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="14sp"
-        android:text="@string/comment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_purchase_pic2" />
-
-
-    <Button
-        android:id="@+id/btn_update"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/update"
-        android:textAllCaps="false"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:background="@drawable/add_item_background"
-        app:layout_constraintTop_toBottomOf="@+id/et_purchase_comment2"
-        tools:layout_editor_absoluteX="123dp" />
-
-    <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/delete"
-        android:textAllCaps="false"
-        android:textStyle="bold"
-        android:textColor="@android:color/holo_red_dark"
-        app:layout_constraintTop_toBottomOf="@+id/btn_update"
-        tools:layout_editor_absoluteX="48dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        <Button
+            android:id="@+id/btn_delete"
+            style="@style/add_btn_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/add_item_background"
+            android:text="@string/delete"
+            android:textAllCaps="false" />
+    </LinearLayout>
 </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.Spinner
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +24,8 @@ class SaleFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,7 +39,22 @@ class SaleFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sale, container, false)
+        val view= inflater.inflate(R.layout.fragment_sale, container, false)
+        val db = activity?.applicationContext?.let { MyDatabaseHelper(it) }
+        val spinnerItem = view.findViewById<Spinner>(R.id.spinnerItem)
+        val list = db?.readAllData()
+        val itemList = mutableListOf<String>()
+
+        if(list!=null){
+            for(li in list){
+                itemList.add(li.itemName)
+            }
+        }
+        val itemListAdapter = ArrayAdapter(activity!!.applicationContext,android.R.layout.simple_spinner_dropdown_item ,itemList)
+        itemListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerItem.adapter = itemListAdapter
+
+        return view
     }
 
     companion object {

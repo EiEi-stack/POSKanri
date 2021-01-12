@@ -12,11 +12,13 @@ abstract class PurchaseDatabase : RoomDatabase() {
         fun getAppDatabase(context: Context): PurchaseDatabase? {
             if (INSTANCE == null) {
                 INSTANCE = Room.databaseBuilder<PurchaseDatabase>(
-                    context.applicationContext, PurchaseDatabase::class.java, "AppDB"
+                    context.applicationContext, PurchaseDatabase::class.java, DB_NAME
                 ).allowMainThreadQueries().build()
             }
             return INSTANCE
         }
+
+        const val DB_NAME="purchase.db"
     }
 
 }

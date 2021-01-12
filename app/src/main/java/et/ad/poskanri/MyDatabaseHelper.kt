@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import et.ad.poskanri.dbclass.PurchaseDao
 import et.ad.poskanri.dbclass.PurchaseEntity
 
 class MyDatabaseHelper(
@@ -67,6 +68,7 @@ class MyDatabaseHelper(
         val db = this.readableDatabase
         val list: MutableList<PurchaseEntity> = ArrayList()
         if (db != null) {
+//            val purchaseDao = PurchaseDao()
             val cursor = db.rawQuery("SELECT * FROM $TABLE_NAME", null)
             if (cursor?.moveToFirst()!!) {
                 do {
@@ -119,6 +121,7 @@ class MyDatabaseHelper(
         }
         return list
     }
+
 
     fun updateData(rowId: String, purchase: PurchaseEntity): Int {
         val db = this.writableDatabase
