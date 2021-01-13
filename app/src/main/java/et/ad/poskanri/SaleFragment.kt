@@ -5,9 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,6 +42,10 @@ class SaleFragment : Fragment() {
         val spinnerItem = view.findViewById<Spinner>(R.id.spinnerItem)
         val list = db?.readAllData()
         val itemList = mutableListOf<String>()
+        val tvPrice = view.findViewById<TextView>(R.id.tvPrice)
+        val btnCalculate = view.findViewById<TextView>(R.id.btnCalculate)
+        val tvCost = view.findViewById<TextView>(R.id.tvCost)
+        val tvSalePrice = view.findViewById<TextView>(R.id.tvSalePrice)
 
         if(list!=null){
             for(li in list){
@@ -54,6 +56,31 @@ class SaleFragment : Fragment() {
         itemListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerItem.adapter = itemListAdapter
 
+        spinnerItem.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val spinnerParent = parent as Spinner
+                val item = spinnerParent.selectedItem as String
+                val db = activity?.applicationContext?.let { MyDatabaseHelper(it) }
+                val price = db?.readPrice(item)
+                tvPrice.text= price.toString()
+            }
+
+        }
+        btnCalculate.setOnClickListener(View.OnClickListener {
+            val itemPrice =tvPrice.text.toString()
+            val transportationCost = tvCost.text.toString()
+            val calculateSalePrice = itemPrice.toDouble()*(transportationCost.toDouble()/100) + itemPrice.toDouble()
+            tvSalePrice.text = calculateSalePrice.toString()
+        })
         return view
     }
 
@@ -77,3 +104,4 @@ class SaleFragment : Fragment() {
             }
     }
 }
+

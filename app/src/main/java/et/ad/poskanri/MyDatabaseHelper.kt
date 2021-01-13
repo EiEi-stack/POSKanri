@@ -122,6 +122,23 @@ class MyDatabaseHelper(
         return list
     }
 
+    fun readPrice(itemName:String): Int {
+        val db = this.readableDatabase
+        var itemPrice: Int =0
+        if (db != null) {
+//            val purchaseDao = PurchaseDao()
+            val query ="SELECT * FROM $TABLE_NAME WHERE $COL_ITEM_NAME=?";
+            val cursor = db.rawQuery(query, arrayOf(itemName))
+            if (cursor?.moveToFirst()!!) {
+                do {
+                    itemPrice = cursor.getString(cursor.getColumnIndex(COL_PURCHASE_PRICE)).toInt()
+
+                } while (cursor.moveToNext())
+                cursor.close()
+            }
+        }
+        return itemPrice
+    }
 
     fun updateData(rowId: String, purchase: PurchaseEntity): Int {
         val db = this.writableDatabase

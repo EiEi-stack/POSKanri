@@ -62,7 +62,7 @@ class UpdateActivity : AppCompatActivity() {
             purchase.itemWeight = purchaseWeight.text.toString()
             purchase.comment = purchaseComment.text.toString()
             val util = Util()
-            purchase.image = util.getBytes(purchaseImage.drawable.toBitmap())
+//            purchase.image = util.getBytes(purchaseImage.drawable.toBitmap())
             val dbHelper = MyDatabaseHelper(this@UpdateActivity)
             val result = dbHelper.updateData(id, purchase)
             if (result == -1) {

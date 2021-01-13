@@ -9,13 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:orientation="vertical"
-        android:layout_marginRight="10dp">
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinnerItem"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,25 +28,60 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Transaporation Cost"/>
-            <EditText
+                android:text="Price" />
+
+            <TextView
+                android:id="@+id/tvPrice"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="0000"/>
+                android:layout_weight="1"
+                android:text="0000" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Transportation Cost(%)" />
+
+            <EditText
+                android:id="@+id/tvCost"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:text="0000" />
 
         </LinearLayout>
 
         <Button
+            android:id="@+id/btnCalculate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="@string/calculate_sale_price"/>
+            android:text="@string/calculate_sale_price"
+            android:textColor="@android:color/white"
+            android:background="@drawable/add_item_background"
+            android:textAllCaps="false" />
 
+        <TextView
+            android:id="@+id/tvSalePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="@string/set_sale_price"/>
+            android:text="@string/set_sale_price"
+            android:textColor="@android:color/white"
+            android:background="@drawable/add_item_background"
+            android:textAllCaps="false" />
     </LinearLayout>
 </FrameLayout>
