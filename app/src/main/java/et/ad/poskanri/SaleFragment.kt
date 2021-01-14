@@ -46,6 +46,7 @@ class SaleFragment : Fragment() {
         val btnCalculate = view.findViewById<TextView>(R.id.btnCalculate)
         val tvCost = view.findViewById<TextView>(R.id.tvCost)
         val tvSalePrice = view.findViewById<TextView>(R.id.tvSalePrice)
+        val btnSetSalePrice = view.findViewById<TextView>(R.id.btnSetSalePrice)
 
         if(list!=null){
             for(li in list){
@@ -78,8 +79,24 @@ class SaleFragment : Fragment() {
         btnCalculate.setOnClickListener(View.OnClickListener {
             val itemPrice =tvPrice.text.toString()
             val transportationCost = tvCost.text.toString()
-            val calculateSalePrice = itemPrice.toDouble()*(transportationCost.toDouble()/100) + itemPrice.toDouble()
+            val calculateSalePrice = itemPrice.toDouble()- (itemPrice.toDouble()*(transportationCost.toDouble()/100) )
             tvSalePrice.text = calculateSalePrice.toString()
+        })
+        btnSetSalePrice.setOnClickListener(View.OnClickListener {
+            val salPrice = tvSalePrice.text
+            if(salPrice!=null){
+                val db = activity?.applicationContext?.let { MyDatabaseHelper(it) }
+                val spinnerItemName = spinnerItem.selectedItem.toString()
+                if(spinnerItemName!=null){
+
+                    val result = db?.addSalePrice(spinnerItemName,salPrice.toString())
+                    if (result == -1) {
+                        Toast.makeText(activity?.applicationContext, "SaLe Price fail", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(activity?.applicationContext, "Update Sale Price Successfully", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         })
         return view
     }

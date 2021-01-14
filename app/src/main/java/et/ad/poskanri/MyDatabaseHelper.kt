@@ -21,6 +21,7 @@ class MyDatabaseHelper(
                     COL_SIZE + " TEXT, " +
                     COL_ITEM_TYPE + " TEXT, " +
                     COL_ITEM_WEIGHT + " TEXT, " +
+                    COL_SALE_PRICE + " TEXT, " +
                     COL_ITEM_PIC + " BLOB, " +
                     COL_COMMENT + " TEXT);"
         db?.execSQL(query)
@@ -43,6 +44,7 @@ class MyDatabaseHelper(
         const val COL_SIZE = "size"
         const val COL_ITEM_TYPE = "item_type"
         const val COL_ITEM_WEIGHT = "item_weight"
+        const val COL_SALE_PRICE = "sale_price"
         const val COL_ITEM_PIC = "item_pic"
         const val COL_COMMENT = "comment"
 
@@ -61,6 +63,13 @@ class MyDatabaseHelper(
         cv.put(COL_ITEM_PIC, purchase.image)
         cv.put(COL_COMMENT, purchase.comment)
         return db.insert(TABLE_NAME, null, cv)
+    }
+
+    fun addSalePrice(itemName:String,salePrice:String): Int {
+        val db = this.writableDatabase
+        val cv = ContentValues()
+        cv.put(COL_ITEM_NAME, salePrice)
+        return db.update(TABLE_NAME, cv, "$COL_ITEM_NAME=?", arrayOf(itemName))
     }
 
 

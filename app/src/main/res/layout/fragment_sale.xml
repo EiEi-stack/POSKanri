@@ -61,6 +61,20 @@
                 android:text="0000" />
 
         </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textColor="@android:color/white"
+        android:background="@drawable/add_item_background"
+        android:textAllCaps="false" />
+</LinearLayout>
 
         <Button
             android:id="@+id/btnCalculate"
@@ -77,6 +91,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"/>
         <Button
+            android:id="@+id/btnSetSalePrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/set_sale_price"
