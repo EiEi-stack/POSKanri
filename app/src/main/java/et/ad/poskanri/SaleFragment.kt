@@ -43,10 +43,11 @@ class SaleFragment : Fragment() {
         val list = db?.readAllData()
         val itemList = mutableListOf<String>()
         val tvPrice = view.findViewById<TextView>(R.id.tvPrice)
-        val btnCalculate = view.findViewById<TextView>(R.id.btnCalculate)
         val tvCost = view.findViewById<TextView>(R.id.tvCost)
         val tvSalePrice = view.findViewById<TextView>(R.id.tvSalePrice)
         val btnSetSalePrice = view.findViewById<TextView>(R.id.btnSetSalePrice)
+        val btnAdd = view.findViewById<TextView>(R.id.btnAdd)
+        val btnMinus = view.findViewById<TextView>(R.id.btnMinus)
 
         if(list!=null){
             for(li in list){
@@ -76,12 +77,6 @@ class SaleFragment : Fragment() {
             }
 
         }
-        btnCalculate.setOnClickListener(View.OnClickListener {
-            val itemPrice =tvPrice.text.toString()
-            val transportationCost = tvCost.text.toString()
-            val calculateSalePrice = itemPrice.toDouble()- (itemPrice.toDouble()*(transportationCost.toDouble()/100) )
-            tvSalePrice.text = calculateSalePrice.toString()
-        })
         btnSetSalePrice.setOnClickListener(View.OnClickListener {
             val salPrice = tvSalePrice.text
             if(salPrice!=null){
@@ -97,6 +92,21 @@ class SaleFragment : Fragment() {
                     }
                 }
             }
+        })
+
+        btnAdd.setOnClickListener(View.OnClickListener {
+            tvSalePrice.text=""
+            val itemPrice =tvPrice.text.toString()
+            val transportationCost = tvCost.text.toString()
+            val calculateSalePrice = (itemPrice.toDouble()*(transportationCost.toDouble()/100) )+itemPrice.toDouble()
+            tvSalePrice.text = calculateSalePrice.toString()
+        })
+        btnMinus.setOnClickListener(View.OnClickListener {
+            tvSalePrice.text=""
+            val itemPrice =tvPrice.text.toString()
+            val transportationCost = tvCost.text.toString()
+            val calculateSalePrice = itemPrice.toDouble()-(itemPrice.toDouble()*(transportationCost.toDouble()/100) )
+            tvSalePrice.text = calculateSalePrice.toString()
         })
         return view
     }
